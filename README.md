@@ -16,7 +16,7 @@ composer require rugolinifr/array-path-selector
 Instantiate the API object:
 
 ```php
-$pathTool = (new Rugolinifr\ArrayPathSelector\Factory\PathToolFactory())->createPathTool();
+$flattener = (new Rugolinifr\ArrayPathSelector\Factory\PathToolFactory())->createFlattener();
 ```
 
 Then create an array (looking like a regular JSON object in the following example):
@@ -41,7 +41,7 @@ Then flatten an array according to the "key/value" model:
 
 ```php
 // flatten an array following the "key/value" model:
-$keyValues = $pathTool->flattenAsKeyValues($array);
+$keyValues = $flattener->flattenAsKeyValues($array);
 $keyValues === [
     'name' => 'John Doe',
     'address.city' => 'Nice',
@@ -56,7 +56,7 @@ $keyValues === [
 Or following the "pairing" model:
 
 ```php
-$pairs = $pathTool->flattenAsPairs($array);
+$pairs = $flattener->flattenAsPairs($array);
 $keyValues === [
     0 => ['name', 'John Doe'],
     1 => ['address.city', 'Nice'],

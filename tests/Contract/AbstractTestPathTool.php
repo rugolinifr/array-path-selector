@@ -5,12 +5,12 @@ declare(strict_types=1);
 namespace Rugolinifr\ArrayPathSelector\Tests\Contract;
 
 use PHPUnit\Framework\TestCase;
-use Rugolinifr\ArrayPathSelector\Contract\PathToolInterface;
+use Rugolinifr\ArrayPathSelector\Contract\FlattenerInterface;
 use Rugolinifr\ArrayPathSelector\Factory\PathToolFactory;
 
 abstract class AbstractTestPathTool extends TestCase
 {
-    protected PathToolInterface $pathTool;
+    protected FlattenerInterface $flattener;
     /** @var array<int|string, mixed>  */
     protected array $result;
 
@@ -26,8 +26,8 @@ abstract class AbstractTestPathTool extends TestCase
         );
     }
 
-    protected function givenIHaveAPathTool(): void
+    protected function givenIHaveAFlattener(): void
     {
-        $this->pathTool = (new PathToolFactory())->createPathTool();
+        $this->flattener = (new PathToolFactory())->createFlattener();
     }
 }
