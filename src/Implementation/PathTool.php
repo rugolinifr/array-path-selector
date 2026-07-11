@@ -27,10 +27,10 @@ class PathTool implements PathToolInterface
     ): void {
         foreach ($array as $key => $value) {
             $nextKey = is_int($key) ? "{$prefixKey}[$key]" : trim("$prefixKey.$key", '.');
-            if (is_array($value)) {
-                $this->flattenRecursively($value, $result, $nextKey);
-            } else {
+            if (!is_array($value) || empty($value)) {
                 $result[$nextKey] = $value;
+            } else {
+                $this->flattenRecursively($value, $result, $nextKey);
             }
         }
     }

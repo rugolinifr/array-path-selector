@@ -41,7 +41,7 @@ class PathToolTest extends TestCase
                 'array' => [],
                 'expectedArray' => [],
             ],
-            'array with direct property stays the same' => [
+            'array as JSON object stays the same' => [
                 'array' => [
                     'string' => 'john',
                     'int' => 25,
@@ -57,7 +57,7 @@ class PathToolTest extends TestCase
                     'float' => 0.25,
                 ],
             ],
-            'array with direct int property stays uses squared brackets as key' => [
+            'array as JSON array use squared brackets' => [
                 'array' => [
                     'john',
                     25,
@@ -73,7 +73,7 @@ class PathToolTest extends TestCase
                     '[4]' => 0.25,
                 ],
             ],
-            'array with nested JSON object' => [
+            'array with nested JSON object uses dot notation' => [
                 'array' => [
                     'nested' => [
                         'string' => 'john',
@@ -91,7 +91,7 @@ class PathToolTest extends TestCase
                     'nested.float' => 0.25,
                 ],
             ],
-            'array with nested JSON array' => [
+            'array with nested JSON array uses squared brackets' => [
                 'array' => [
                     'nested' => [
                         'john',
@@ -109,7 +109,7 @@ class PathToolTest extends TestCase
                     'nested[4]' => 0.25,
                 ],
             ],
-            'array with nested JSON object|array' => [
+            'array with nested JSON object|array mixed notation' => [
                 'array' => [
                     'nested' => [
                         'john',
@@ -127,7 +127,18 @@ class PathToolTest extends TestCase
                     'nested.float' => 0.25,
                 ],
             ],
-            //TODO: nested empty array
+            'array with empty nested array' => [
+                'array' => [
+                    'nested' => [],
+                    'full' => [
+                        'name' => 'john',
+                    ]
+                ],
+                'expectedArray' => [
+                    'nested' => [],
+                    'full.name' => 'john',
+                ],
+            ],
         ];
     }
 
