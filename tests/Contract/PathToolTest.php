@@ -109,6 +109,24 @@ class PathToolTest extends TestCase
                     'nested[4]' => 0.25,
                 ],
             ],
+            'array with nested JSON object|array' => [
+                'array' => [
+                    'nested' => [
+                        'john',
+                        25,
+                        'object' => $object,
+                        true,
+                        'float' => 0.25,
+                    ],
+                ],
+                'expectedArray' => [
+                    'nested[0]' => 'john',
+                    'nested[1]' => 25,
+                    'nested.object' => $object,
+                    'nested[2]' => true,
+                    'nested.float' => 0.25,
+                ],
+            ],
             //TODO: nested empty array
         ];
     }
