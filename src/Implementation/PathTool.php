@@ -10,7 +10,7 @@ use Rugolinifr\ArrayPathSelector\Contract\PathToolInterface;
 class PathTool implements PathToolInterface
 {
 
-    public function flattenAsKeyValue(array $array): array
+    public function flattenAsKeyValues(array $array): array
     {
         $resultFiller = function (array &$array, string $key, mixed $value): void {
             $array[$key] = $value;

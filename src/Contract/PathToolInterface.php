@@ -14,7 +14,7 @@ interface PathToolInterface
      * @param array<int|string, mixed> $array
      * @return array<string, mixed>
      */
-    public function flattenAsKeyValue(array $array): array;
+    public function flattenAsKeyValues(array $array): array;
 
     /**
      * Flattens the given array.

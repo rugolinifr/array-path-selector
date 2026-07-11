@@ -228,6 +228,6 @@ class PathToolKeyValueTest extends AbstractTestPathTool
      */
     private function whenIFlattenArrayAsKeyValue(array $array): void
     {
-        $this->result = $this->pathTool->flattenAsKeyValue($array);
+        $this->result = $this->pathTool->flattenAsKeyValues($array);
     }
 }
