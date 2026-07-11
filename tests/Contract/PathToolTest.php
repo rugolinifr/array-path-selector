@@ -8,6 +8,7 @@ use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 use Rugolinifr\ArrayPathSelector\Contract\PathToolInterface;
 use Rugolinifr\ArrayPathSelector\Factory\PathToolFactory;
+use stdClass;
 
 class PathToolTest extends TestCase
 {
@@ -34,10 +35,27 @@ class PathToolTest extends TestCase
      */
     public static function provideFlattenArrayData(): array
     {
+        $object = new stdClass();
         return [
             'empty array becomes an empty array' => [
                 'array' => [],
                 'expectedArray' => [],
+            ],
+            'array with direct property stays the same' => [
+                'array' => [
+                    'string' => 'john',
+                    'int' => 25,
+                    'object' => $object,
+                    'bool' => true,
+                    'float' => 0.25,
+                ],
+                'expectedArray' => [
+                    'string' => 'john',
+                    'int' => 25,
+                    'object' => $object,
+                    'bool' => true,
+                    'float' => 0.25,
+                ],
             ],
         ];
     }

@@ -11,6 +11,6 @@ class PathTool implements PathToolInterface
 
     public function flattenAsKeyValue(array $array): array
     {
-       return [];
+       return $array;
     }
 }
