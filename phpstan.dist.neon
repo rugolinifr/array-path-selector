@@ -1,0 +1,15 @@
+parameters:
+  level: 8
+  paths:
+    - src
+    - tests
+  ignoreErrors:
+  exceptions:
+    uncheckedExceptionClasses:
+      - 'LogicException'
+      - 'RuntimeException'
+      - 'Error'
+    check:
+      missingCheckedExceptionInThrows: true
+    reportUncheckedExceptionDeadCatch: true
+    implicitThrows: false
