@@ -139,6 +139,28 @@ class PathToolTest extends TestCase
                     'full.name' => 'john',
                 ],
             ],
+            'array with depth 2' => [
+                'array' => [
+                    'nested' => [
+                        'again' => [
+                            'name' =>'john',
+                            'int' => 25,
+                        ],
+                        [
+                            'object' =>$object,
+                            'bool' => true,
+                            0.25,
+                        ],
+                    ],
+                ],
+                'expectedArray' => [
+                    'nested.again.name' => 'john',
+                    'nested.again.int' => 25,
+                    'nested[0].object' => $object,
+                    'nested[0].bool' => true,
+                    'nested[0][0]' => 0.25,
+                ],
+            ],
         ];
     }
 
