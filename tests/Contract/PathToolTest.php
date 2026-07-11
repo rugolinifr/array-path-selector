@@ -57,6 +57,23 @@ class PathToolTest extends TestCase
                     'float' => 0.25,
                 ],
             ],
+            'array with direct int property stays uses squared brackets as key' => [
+                'array' => [
+                    'john',
+                    25,
+                    $object,
+                    true,
+                    0.25,
+                ],
+                'expectedArray' => [
+                    '[0]' => 'john',
+                    '[1]' => 25,
+                    '[2]' => $object,
+                    '[3]' => true,
+                    '[4]' => 0.25,
+                ],
+            ],
+            //TODO: nested empty array
         ];
     }
 
