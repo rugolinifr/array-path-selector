@@ -1,0 +1,34 @@
+{
+    "name": "rugolinifr/array-path-selector",
+    "description": "This package provides an API to flatten nested PHP arrays to map their values to a path selector, do the opposite operation or replace any value in the array.",
+    "type": "library",
+    "keywords": [
+        "php",
+        "array",
+        "path",
+        "selector",
+        "array_walk_recursive"
+    ],
+    "license": [
+        "MIT"
+    ],
+    "authors": [
+        {
+            "name": "Romain UGOLINI",
+            "role": "developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Rugolinifr\\ArrayPathSelector\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Rugolinifr\\ArrayPathSelector\\Tests\\": "tests/"
+        }
+    },
+    "require": {
+        "php": "8.*"
+    }
+}
