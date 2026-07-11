@@ -41,7 +41,7 @@ Then flatten an array according to the "key/value" model:
 
 ```php
 // flatten an array following the "key/value" model:
-$keyValues = $pathTool->flattenAsKeyValue($array);
+$keyValues = $pathTool->flattenAsKeyValues($array);
 $keyValues === [
     'name' => 'John Doe',
     'address.city' => 'Nice',
