@@ -35,15 +35,22 @@ class CrudPutTest extends TestCase
      */
     public static function providePutData(): array
     {
-        $object = new stdClass();
         return [
             'creates value into root' => self::createValueIntoRoot(),
-            'creates value into not existing nested ' => self::createValueIntoNotExistingNested(),
             'replaces value into root' => self::replaceValueIntoRoot(),
-            'put value inside nested array with dot notation' => self::putNestedDotNotation(),
-            'put value inside nested array with index notation' => self::putNestedIndexNotation($object),
-            'put value into complex mixed notation' => self::putComplexMixedNotation(),
-            'put value into an empty path' => self::putValueIntoEmptyString(),
+
+            'creates value into not existing nested - dot notation' => self::createValueIntoNotExistingNestedDotNotation(),
+
+            'creates value into existing nested - dot notation' => self::createValueIntoExistingNestedDotNotation(),
+            'replaces value into existing nested - dot notation' => self::replaceValueIntoExistingNestedDotNotation(),
+
+            'creates value into existing nested - bracket notation' => self::createValueIntoExistingNestedBracketNotation(),
+            'replaces value into existing nested - bracket notation' => self::replaceValueIntoExistingNestedBracketNotation(),
+
+            'creates value into complex mixed notation' => self::createValueIntoComplexMixedNotation(),
+
+            'creates value into an empty path' => self::createValueIntoEmptyString(),
+            'replaces value into an empty path' => self::replaceValueIntoEmptyString(),
         ];
     }
 
@@ -65,7 +72,7 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function createValueIntoNotExistingNested(): array
+    private static function createValueIntoNotExistingNestedDotNotation(): array
     {
         return [
             'array' => [],
@@ -99,7 +106,7 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function putNestedDotNotation(): array
+    private static function createValueIntoExistingNestedDotNotation(): array
     {
         return [
             'array' => [
@@ -121,8 +128,30 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function putNestedIndexNotation(stdClass $object): array
+    private static function replaceValueIntoExistingNestedDotNotation(): array
     {
+        return [
+            'array' => [
+                'user' => [
+                    'email' => 'old@example.com',
+                ],
+            ],
+            'path' => 'user.email',
+            'value' => 'john@example.com',
+            'expectedArray' => [
+                'user' => [
+                    'email' => 'john@example.com',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function createValueIntoExistingNestedBracketNotation(): array
+    {
+        $object = new stdClass();
         return [
             'array' => [
                 'cars' => [
@@ -145,7 +174,28 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function putComplexMixedNotation(): array
+    private static function replaceValueIntoExistingNestedBracketNotation(): array
+    {
+        return [
+            'array' => [
+                'cars' => [
+                    ['brand' => 'Ford'],
+                ],
+            ],
+            'path' => 'cars[0].brand',
+            'value' => 'Tesla',
+            'expectedArray' => [
+                'cars' => [
+                    ['brand' => 'Tesla'],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function createValueIntoComplexMixedNotation(): array
     {
         return [
             'array' => [
@@ -173,7 +223,7 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function putValueIntoEmptyString(): array
+    private static function createValueIntoEmptyString(): array
     {
         return [
             'array' => [],
@@ -185,9 +235,26 @@ class CrudPutTest extends TestCase
         ];
     }
 
+    /**
+     * @return array<string, mixed>
+     */
+    private static function replaceValueIntoEmptyString(): array
+    {
+        return [
+            'array' => [
+                '' => 'oldValue'
+            ],
+            'path' => '',
+            'value' => 'valueForEmptyString',
+            'expectedArray' => [
+                '' => 'valueForEmptyString',
+            ],
+        ];
+    }
+
     private function givenIHaveACrud(): void
     {
-         $this->crud = (new PathToolFactory())->createCrud();
+        $this->crud = (new PathToolFactory())->createCrud();
     }
 
     /**
