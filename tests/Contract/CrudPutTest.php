@@ -48,6 +48,7 @@ class CrudPutTest extends TestCase
             'replaces value into existing nested - bracket notation' => self::replaceValueIntoExistingNestedBracketNotation(),
 
             'creates value into complex mixed notation' => self::createValueIntoComplexMixedNotation(),
+            'replaces value into complex mixed notation' => self::replaceValueIntoComplexMixedNotation(),
 
             'creates value into an empty path' => self::createValueIntoEmptyString(),
             'replaces value into an empty path' => self::replaceValueIntoEmptyString(),
@@ -213,6 +214,37 @@ class CrudPutTest extends TestCase
                         'name' => 'john',
                         'tags' => [
                             'admin',
+                        ],
+                    ],
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function replaceValueIntoComplexMixedNotation(): array
+    {
+        return [
+            'array' => [
+                'nested' => [
+                    'again' => [
+                        'name' => 'john',
+                        'tags' => [
+                            'admin',
+                        ],
+                    ],
+                ],
+            ],
+            'path' => 'nested.again.tags[0]',
+            'value' => 'editor',
+            'expectedArray' => [
+                'nested' => [
+                    'again' => [
+                        'name' => 'john',
+                        'tags' => [
+                            'editor',
                         ],
                     ],
                 ],
