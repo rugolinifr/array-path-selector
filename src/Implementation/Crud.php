@@ -12,28 +12,15 @@ class Crud implements CrudInterface
     public function put(array &$array, string $path, mixed $value): void
     {
         $splitPath = $this->createSplitPath($path);
-        $this->putRecursively($array, $splitPath, $value);
-    }
-
-    /**
-     * @param array<int|string, mixed> $array
-     * @param string[] $splitPath
-     */
-    private function putRecursively(
-        array &$array,
-        array $splitPath,
-        mixed $value,
-    ): void {
-        $length = count($splitPath);
         $targetArray = &$array;
-        for ($i = 0; $i < ($length - 1); $i++) {
-            $subPath = $splitPath[$i];
+        $lastProperty = array_pop($splitPath);
+        foreach ($splitPath as $subPath) {
             if (!key_exists($subPath, $targetArray) || !is_array($targetArray[$subPath])) {
                 $targetArray[$subPath] = [];
             }
             $targetArray = &$targetArray[$subPath];
         }
-        $targetArray[$splitPath[$i]] = $value;
+        $targetArray[$lastProperty] = $value; //@phpstan-ignore offsetAccess.invalidOffset
     }
 
     /**
