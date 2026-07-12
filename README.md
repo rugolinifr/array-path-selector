@@ -11,7 +11,7 @@ Run the following command:
 composer require rugolinifr/array-path-selector
 ```
 
-## Examples:
+## Flattener examples
 
 Instantiate the API object:
 
@@ -72,6 +72,53 @@ The "key/value" model is the more natural approach,
 perfect to test whether a path existence or find a value,
 whereas the "pairing" model suits better when comparing the subparts of two (or more) arrays is wanted,
 as sequential numeric keys are easier to follow than a recursive comparison algorithm.
+
+## Crud examples
+
+Instantiate the API object:
+
+```php
+$crud = (new Rugolinifr\ArrayPathSelector\Factory\PathToolFactory())->createCrud();
+```
+
+Then use it to manipulate arrays:
+
+```php
+$array = [
+    'name' => 'John Doe',
+    'kids' => [],
+];
+
+// Create new arrays along the property path:
+$crud->put($array, 'address.city', 'Nice');
+$crud->put($array, 'address.zips[0]', '06000');
+
+$array === [
+    'name' => 'John Doe',
+    'kids' => [],
+    'address' => [
+        'city' => 'Nice',
+        'zips' => [
+            '06000',
+        ],
+    ],
+];
+
+// Replace a value:
+$crud->put($array, 'name', 'Jane Doe');
+
+// Delete a value:
+$crud->delete($array, 'kids');
+$crud->delete($array, 'address.zips[0]');
+
+$array === [
+    'name' => 'Jane Doe',
+    'address' => [
+        'city' => 'Nice',
+        'zips' => [],
+    ],
+];
+```
 
 ## Known limitations
 
