@@ -21,4 +21,15 @@ interface CrudInterface
      *
      */
     public function put(array &$array, string $path, mixed $value): void;
+
+    /**
+     * Deletes the given value at the given path from the given array.
+     *
+     * Does nothing when the path does not exist.
+     *
+     * @param array<int|string, mixed> $array the array to put a value into.
+     * @param string $path the path of the value to remove, eg 'name' or 'address.zip' or 'cars[0].brand'.
+     *  The empty string remove the value at the root of the given array having the empty string as a key.
+     */
+    public function delete(array &$array, string $path): void;
 }
