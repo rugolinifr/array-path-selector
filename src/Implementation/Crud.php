@@ -15,7 +15,7 @@ class Crud implements CrudInterface
         $targetArray = &$array;
         $lastProperty = array_pop($splitPath);
         foreach ($splitPath as $subPath) {
-            if (!key_exists($subPath, $targetArray) || !is_array($targetArray[$subPath])) {
+            if (!is_array($targetArray[$subPath] ?? null)) {
                 $targetArray[$subPath] = [];
             }
             $targetArray = &$targetArray[$subPath];
