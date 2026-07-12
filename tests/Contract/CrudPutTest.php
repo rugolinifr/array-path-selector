@@ -37,9 +37,9 @@ class CrudPutTest extends TestCase
     {
         $object = new stdClass();
         return [
-            'put value in empty array with simple path' => self::putSimplePathInEmptyArray(),
-            'put value in empty array with nested path' => self::putNestedPathInEmptyArray(),
-            'replace existing value' => self::replaceExistingValue(),
+            'creates value into root' => self::createValueIntoRoot(),
+            'creates value into not existing nested ' => self::createValueIntoNotExistingNested(),
+            'replaces value into root' => self::replaceValueIntoRoot(),
             'put value inside nested array with dot notation' => self::putNestedDotNotation(),
             'put value inside nested array with index notation' => self::putNestedIndexNotation($object),
             'put value into complex mixed notation' => self::putComplexMixedNotation(),
@@ -50,7 +50,7 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function putSimplePathInEmptyArray(): array
+    private static function createValueIntoRoot(): array
     {
         return [
             'array' => [],
@@ -65,7 +65,7 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function putNestedPathInEmptyArray(): array
+    private static function createValueIntoNotExistingNested(): array
     {
         return [
             'array' => [],
@@ -82,7 +82,7 @@ class CrudPutTest extends TestCase
     /**
      * @return array<string, mixed>
      */
-    private static function replaceExistingValue(): array
+    private static function replaceValueIntoRoot(): array
     {
         return [
             'array' => [
