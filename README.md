@@ -72,3 +72,8 @@ The "key/value" model is the more natural approach,
 perfect to test whether a path existence or find a value,
 whereas the "pairing" model suits better when comparing the subparts of two (or more) arrays is wanted,
 as sequential numeric keys are easier to follow than a recursive comparison algorithm.
+
+## Known limitations
+
+Arrays having keys using the dot character of wrapping integers with squared brackets will conflicts with this
+API.

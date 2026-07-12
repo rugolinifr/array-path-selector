@@ -26,16 +26,14 @@ class Crud implements CrudInterface
     ): void {
         $length = count($splitPath);
         $targetArray = &$array;
-        foreach ($splitPath as $index => $subPath) {
-            if ($index === $length - 1) {
-                $targetArray[$subPath] = $value;
-            } elseif (key_exists($subPath, $targetArray) && is_array($targetArray[$subPath])) {
-                $targetArray = &$targetArray[$subPath];
-            } else {
+        for ($i = 0; $i < ($length - 1); $i++) {
+            $subPath = $splitPath[$i];
+            if (!key_exists($subPath, $targetArray) || !is_array($targetArray[$subPath])) {
                 $targetArray[$subPath] = [];
-                $targetArray = &$targetArray[$subPath];
             }
+            $targetArray = &$targetArray[$subPath];
         }
+        $targetArray[$splitPath[$i]] = $value;
     }
 
     /**
