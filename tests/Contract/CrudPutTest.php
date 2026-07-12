@@ -133,14 +133,14 @@ class CrudPutTest extends TestCase
         return [
             'array' => [
                 'user' => [
-                    'email' => 'old@example.com',
+                    'email' => 'john@example.com',
                 ],
             ],
             'path' => 'user.email',
-            'value' => 'john@example.com',
+            'value' => 'jane@example.com',
             'expectedArray' => [
                 'user' => [
-                    'email' => 'john@example.com',
+                    'email' => 'jane@example.com',
                 ],
             ],
         ];
