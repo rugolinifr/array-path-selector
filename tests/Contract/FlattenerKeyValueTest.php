@@ -7,19 +7,20 @@ namespace Rugolinifr\ArrayPathSelector\Tests\Contract;
 use PHPUnit\Framework\Attributes\DataProvider;
 use stdClass;
 
-class PathToolPairsTest extends AbstractTestPathTool
+class FlattenerKeyValueTest extends AbstractTestPathTool
 {
+
     /**
      * @param array<int|string, mixed> $array
-     * @param array<int, array{0: string, 1: mixed}> $expectedArray
+     * @param array<string, mixed> $expectedArray
      */
     #[DataProvider('provideFlattenArrayData')]
-    public function testFlattenAsPairs(
+    public function testFlattenAsKeyValue(
         array $array,
         array $expectedArray,
     ): void {
-        $this->givenIHaveAPathTool();
-        $this->whenIFlattenArrayAsPairs($array);
+        $this->givenIHaveAFlattener();
+        $this->whenIFlattenArrayAsKeyValue($array);
         $this->thenIGetExpectedFlattenArray($expectedArray);
     }
 
@@ -40,6 +41,7 @@ class PathToolPairsTest extends AbstractTestPathTool
             'array with depth 2' => self::depth2($object),
         ];
     }
+
 
     /**
      * @return array<string, mixed>
@@ -66,11 +68,11 @@ class PathToolPairsTest extends AbstractTestPathTool
                 'float' => 0.25,
             ],
             'expectedArray' => [
-                0 => ['string', 'john'],
-                1 => ['int', 25],
-                2 => ['object', $object],
-                3 => ['bool', true],
-                4 => ['float', 0.25],
+                'string' => 'john',
+                'int' => 25,
+                'object' => $object,
+                'bool' => true,
+                'float' => 0.25,
             ],
         ];
     }
@@ -89,11 +91,11 @@ class PathToolPairsTest extends AbstractTestPathTool
                 0.25,
             ],
             'expectedArray' => [
-                0 => ['[0]', 'john'],
-                1 => ['[1]', 25],
-                2 => ['[2]', $object],
-                3 => ['[3]', true],
-                4 => ['[4]', 0.25],
+                '[0]' => 'john',
+                '[1]' => 25,
+                '[2]' => $object,
+                '[3]' => true,
+                '[4]' => 0.25,
             ],
         ];
     }
@@ -114,11 +116,11 @@ class PathToolPairsTest extends AbstractTestPathTool
                 ],
             ],
             'expectedArray' => [
-                0 => ['nested.string', 'john'],
-                1 => ['nested.int', 25],
-                2 => ['nested.object', $object],
-                3 => ['nested.bool', true],
-                4 => ['nested.float', 0.25],
+                'nested.string' => 'john',
+                'nested.int' => 25,
+                'nested.object' => $object,
+                'nested.bool' => true,
+                'nested.float' => 0.25,
             ],
         ];
     }
@@ -139,11 +141,11 @@ class PathToolPairsTest extends AbstractTestPathTool
                 ],
             ],
             'expectedArray' => [
-                0 => ['nested[0]', 'john'],
-                1 => ['nested[1]', 25],
-                2 => ['nested[2]', $object],
-                3 => ['nested[3]', true],
-                4 => ['nested[4]', 0.25],
+                'nested[0]' => 'john',
+                'nested[1]' => 25,
+                'nested[2]' => $object,
+                'nested[3]' => true,
+                'nested[4]' => 0.25,
             ],
         ];
     }
@@ -164,11 +166,11 @@ class PathToolPairsTest extends AbstractTestPathTool
                 ],
             ],
             'expectedArray' => [
-                0 => ['nested[0]', 'john'],
-                1 => ['nested[1]', 25],
-                2 => ['nested.object', $object],
-                3 => ['nested[2]', true],
-                4 => ['nested.float', 0.25],
+                'nested[0]' => 'john',
+                'nested[1]' => 25,
+                'nested.object' => $object,
+                'nested[2]' => true,
+                'nested.float' => 0.25,
             ],
         ];
     }
@@ -186,8 +188,8 @@ class PathToolPairsTest extends AbstractTestPathTool
                 ]
             ],
             'expectedArray' => [
-                0 => ['nested', []],
-                1 => ['full.name', 'john'],
+                'nested' => [],
+                'full.name' => 'john',
             ],
         ];
     }
@@ -212,11 +214,11 @@ class PathToolPairsTest extends AbstractTestPathTool
                 ],
             ],
             'expectedArray' => [
-                0 => ['nested.again.name', 'john'],
-                1 => ['nested.again.int', 25],
-                2 => ['nested[0].object', $object],
-                3 => ['nested[0].bool', true],
-                4 => ['nested[0][0]', 0.25],
+                'nested.again.name' => 'john',
+                'nested.again.int' => 25,
+                'nested[0].object' => $object,
+                'nested[0].bool' => true,
+                'nested[0][0]' => 0.25,
             ],
         ];
     }
@@ -224,8 +226,8 @@ class PathToolPairsTest extends AbstractTestPathTool
     /**
      * @param array<int|string, mixed> $array
      */
-    private function whenIFlattenArrayAsPairs(array $array): void
+    private function whenIFlattenArrayAsKeyValue(array $array): void
     {
-        $this->result = $this->pathTool->flattenAsPairs($array);
+        $this->result = $this->flattener->flattenAsKeyValues($array);
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Rugolinifr\ArrayPathSelector\Contract;
 
-interface PathToolInterface
+interface FlattenerInterface
 {
     /**
      * Flattens the given array.

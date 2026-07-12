@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Rugolinifr\ArrayPathSelector\Implementation;
 
 use Closure;
-use Rugolinifr\ArrayPathSelector\Contract\PathToolInterface;
+use Rugolinifr\ArrayPathSelector\Contract\FlattenerInterface;
 
-class PathTool implements PathToolInterface
+class Flattener implements FlattenerInterface
 {
 
     public function flattenAsKeyValues(array $array): array
