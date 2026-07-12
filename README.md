@@ -124,3 +124,18 @@ $array === [
 
 Arrays having keys using the dot character of wrapping integers with squared brackets will conflicts with this
 API.
+
+## For maintainers
+
+The project is shipped with a development image:
+
+```shell
+docker compose up -d --build --force-recreate
+```
+
+Use it to test the project:
+
+```shell
+docker compose exec php phpstan analyze
+docker compose exec php vendor/bin/phpunit tests
+```
