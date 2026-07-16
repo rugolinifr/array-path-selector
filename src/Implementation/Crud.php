@@ -35,7 +35,7 @@ class Crud implements CrudInterface
             }
             $targetArray = &$targetArray[$subPath];
         }
-        if (isset($targetArray[$lastProperty])) {
+        if (key_exists($lastProperty, $targetArray)) {
             unset($targetArray[$lastProperty]);
         }
     }
