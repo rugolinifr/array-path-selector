@@ -39,6 +39,7 @@ class CrudDeleteTest extends TestCase
             'deletes value from nested - bracket notation' => self::deleteValueFromNestedBracketNotation(),
             'deletes value from complex mixed notation' => self::deleteValueFromComplexMixedNotation(),
             'deletes value from an empty path' => self::deleteValueFromEmptyString(),
+            'deletes a null value' => self::deleteNullValue(),
             'does nothing when path does not exist' => self::doesNothingWhenPathDoesNotExist(),
             'does nothing when nested path does not exist' => self::doesNothingWhenNestedPathDoesNotExist(),
         ];
@@ -145,6 +146,23 @@ class CrudDeleteTest extends TestCase
                 'other' => 'keepMe',
             ],
             'path' => '',
+            'expectedArray' => [
+                'other' => 'keepMe',
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function deleteNullValue(): array
+    {
+        return [
+            'array' => [
+                'other' => 'keepMe',
+                'isNull' => null,
+            ],
+            'path' => 'isNull',
             'expectedArray' => [
                 'other' => 'keepMe',
             ],
