@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace Rugolinifr\ArrayPathSelector\Implementation;
 
-use Closure;
 use Rugolinifr\ArrayPathSelector\Contract\FlattenerInterface;
 
 class Flattener implements FlattenerInterface
@@ -12,51 +11,46 @@ class Flattener implements FlattenerInterface
 
     public function flattenAsKeyValues(array $array): array
     {
-        $resultFiller = function (array &$array, string $key, mixed $value): void {
-            $array[$key] = $value;
-        };
-        return $this->flatten($array, $resultFiller); //@phpstan-ignore return.type
+        return $this->flatten($array);
     }
 
     public function flattenAsPairs(array $array): array
     {
-        $resultFiller = function (array &$array, string $key, mixed $value): void {
-            $array[] = [$key, $value];
-        };
-        return $this->flatten($array, $resultFiller); //@phpstan-ignore return.type
+        $result = [];
+        $flattened = $this->flatten($array);
+        foreach ($flattened as $key => $value) {
+            $result[] = [$key, $value];
+        }
+        return $result; //@phpstan-ignore return.type
     }
 
     /**
      * @param array<int|string, mixed> $array
-     * @param Closure(array<int|string, mixed>&, string, mixed):void $resultFiller
-     * @return array<int|string, mixed>
+     * @return array<string, mixed>
      */
     private function flatten(
         array $array,
-        Closure $resultFiller,
     ): array {
         $result = [];
-        $this->flattenRecursively($array, $result, '', $resultFiller);
+        $this->flattenRecursively($array, $result, '');
         return $result;
     }
 
     /**
      * @param array<int|string, mixed> $array
-     * @param array<int|string, mixed> $result
-     * @param Closure(array<int|string, mixed>&, string, mixed):void $resultFiller
+     * @param array<string, mixed> $result
      */
     private function flattenRecursively(
         array $array,
         array &$result,
         string $prefixKey,
-        Closure $resultFiller,
     ): void {
         foreach ($array as $key => $value) {
             $nextKey = $this->createNextKey($key, $prefixKey);
             if (!is_array($value) || empty($value)) {
-                $resultFiller($result, $nextKey, $value);
+                $result[$nextKey] = $value;
             } else {
-                $this->flattenRecursively($value, $result, $nextKey, $resultFiller);
+                $this->flattenRecursively($value, $result, $nextKey);
             }
         }
     }
