@@ -104,6 +104,9 @@ $array === [
     ],
 ];
 
+// Get a value:
+$crud->get($array, 'name') === 'Jane Doe';
+
 // Replace a value:
 $crud->put($array, 'name', 'Jane Doe');
 
