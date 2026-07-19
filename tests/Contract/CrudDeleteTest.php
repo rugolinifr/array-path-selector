@@ -42,6 +42,7 @@ class CrudDeleteTest extends TestCase
             'deletes a null value' => self::deleteNullValue(),
             'does nothing when path does not exist' => self::doesNothingWhenPathDoesNotExist(),
             'does nothing when nested path does not exist' => self::doesNothingWhenNestedPathDoesNotExist(),
+            'does not delete property having same name in array at previous path' => self::doesNotDeleteSamePropertyAtPreviousPath(),
         ];
     }
 
@@ -200,6 +201,28 @@ class CrudDeleteTest extends TestCase
             'expectedArray' => [
                 'user' => [
                     'name' => 'john',
+                ],
+            ],
+        ];
+    }
+
+    /**
+     * @return array<string, mixed>
+     */
+    private static function doesNotDeleteSamePropertyAtPreviousPath(): array
+    {
+        return [
+            'array' => [
+                'aaa' => [
+                    'bbb' => 'alice',
+                    'ccc' => 'bob'
+                ],
+            ],
+            'path' => 'aaa.ddd.bbb', // /!\ "bbb" exist in "aaa"
+            'expectedArray' => [
+                'aaa' => [
+                    'bbb' => 'alice',
+                    'ccc' => 'bob'
                 ],
             ],
         ];
