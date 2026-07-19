@@ -15,10 +15,10 @@ class Crud implements CrudInterface
     public function get(array $array, string $path): mixed
     {
         $container = new stdClass();
-        $action = function (array $lastArray, string $lastProperty) use ($container): void {
+        $readProperty = function (array $lastArray, string $lastProperty) use ($container): void {
             $container->result = $lastArray[$lastProperty];
         };
-        $this->searchAndStopWhenPathNotExist($array, $path, $action);
+        $this->searchAndStopWhenPathNotExist($array, $path, $readProperty);
         if (!property_exists($container, 'result')) {
             throw new ValueNotFoundException("There is no value at path \"$path\".");
         }
@@ -41,10 +41,10 @@ class Crud implements CrudInterface
 
     public function delete(array &$array, string $path): void
     {
-        $action = function (array &$lastArray, string $lastPath): void {
+        $deleteProperty = function (array &$lastArray, string $lastPath): void {
             unset($lastArray[$lastPath]);
         };
-        $this->searchAndStopWhenPathNotExist($array, $path, $action);
+        $this->searchAndStopWhenPathNotExist($array, $path, $deleteProperty);
     }
 
     /**
@@ -70,7 +70,7 @@ class Crud implements CrudInterface
 
     /**
      * @param array<int|string, mixed> $array
-     * @param Closure(array&, string): void $action
+     * @param Closure(array<int|string, mixed>&, string): void $action
      */
     private function searchAndStopWhenPathNotExist(
         array &$array,
